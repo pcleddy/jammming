@@ -12,15 +12,17 @@ class App extends Component {
     super(props);
     this.state = {
       searchResults: [
-        { name: 'A_name', artist: 'A_artist', album: 'A_album'},
-        { name: 'B_name', artist: 'B_artist', album: 'B_album'},
-        { name: 'C_name', artist: 'C_artist', album: 'C_album'},
+        { id: 1, name: 'A_name', artist: 'A_artist', album: 'A_album'},
+        { id: 2, name: 'B_name', artist: 'B_artist', album: 'B_album'},
+        { id: 3, name: 'C_name', artist: 'C_artist', album: 'C_album'},
       ],
       playlistTracks: [
-        { name: 'D_name', artist: 'D_artist', album: 'D_album'},        
+        { id: 4, name: 'D_name', artist: 'D_artist', album: 'D_album'},
       ],
       playlistName: 'my plist'
     }
+    this.addTrack = this.addTrack.bind(this);
+
   }
 
   render() {
@@ -30,13 +32,38 @@ class App extends Component {
         <div className="App">
           <SearchBar component />
           <div className="App-playlist">
-            <SearchResults searchResults={this.state.searchResults} />
+            <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack} />
             <Playlist playlistTracks={this.state.playlistTracks} playlistName={this.state.playlistName} />
           </div>
         </div>
         <h1>END</h1>
       </div>
     );
+  }
+
+  addTrack(track) {
+  //   let existing_track_ids = this.state.playlistTracks.map( track => track.id );
+  //   if ( existing_track_ids.includes(track.id) ) {
+  //     this.state.playlistTracks.push(track);
+  //     console.log(this.state.playlistTracks)
+  //     this.setState( {playlistTracks: this.state.playlistTracks} )
+  //     console.log('Found it!')
+  //     console.log(this.state.playlistTracks)
+  //   } else {
+  //     console.log('Not found')
+  //     console.log(this.state.playlistTracks)
+  //   }
+  // }
+    if ( this.state.playlistTracks.find( m_track => m_track.id === track.id ) ) {
+      this.state.playlistTracks.push(track);
+      console.log(this.state.playlistTracks)
+      this.setState( {playlistTracks: this.state.playlistTracks} )
+      console.log('Found it!')
+      console.log(this.state.playlistTracks)
+    } else {
+      console.log('Not found')
+      console.log(this.state.playlistTracks)
+    }
   }
 }
 
