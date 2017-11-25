@@ -42,9 +42,8 @@ class App extends Component {
 
   addTrack(track) {
     if ( this.state.playlistTracks.find( m_track => m_track.id === track.id ) === undefined ) {
-      let tmp = this.state.playlistTracks;
-      tmp.push(track);
-      this.setState( {playlistTracks: tmp} )
+      this.state.playlistTracks.push(track);
+      this.setState( {playlistTracks: this.state.playlistTracks} )
       console.log('Found it!')
     }
   }
