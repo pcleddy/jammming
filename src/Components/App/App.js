@@ -42,9 +42,7 @@ class App extends Component {
 
   addTrack(track) {
     let existing_track_ids = this.state.playlistTracks.map( track => track.id );
-    if ( existing_track_ids.includes(track.id) ) {
-      console.log('Found it!')
-    } else {
+    if ( ! existing_track_ids.includes(track.id) ) {
       this.state.playlistTracks.push(track);
       this.setState( {playlistTracks: this.state.playlistTracks} )
       console.log('Not found')
