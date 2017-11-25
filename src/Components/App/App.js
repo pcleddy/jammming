@@ -55,7 +55,4 @@ class App extends Component {
 
 } // END App
 
-
-
-
 export default App;
