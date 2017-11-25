@@ -16,12 +16,11 @@ class App extends Component {
         { id: 2, name: 'B_name', artist: 'B_artist', album: 'B_album'},
         { id: 3, name: 'C_name', artist: 'C_artist', album: 'C_album'},
       ],
-      playlistTracks: [
-        { id: 4, name: 'D_name', artist: 'D_artist', album: 'D_album'},
-      ],
+      playlistTracks: [],
       playlistName: 'my plist'
     }
     this.addTrack = this.addTrack.bind(this);
+    this.removeTrack = this.removeTrack.bind(this);
 
   }
 
@@ -33,7 +32,7 @@ class App extends Component {
           <SearchBar component />
           <div className="App-playlist">
             <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack} />
-            <Playlist playlistTracks={this.state.playlistTracks} playlistName={this.state.playlistName} />
+            <Playlist playlistTracks={this.state.playlistTracks} playlistName={this.state.playlistName} onRemove={this.removeTrack} />
           </div>
         </div>
         <h1>END</h1>
@@ -42,29 +41,24 @@ class App extends Component {
   }
 
   addTrack(track) {
-  //   let existing_track_ids = this.state.playlistTracks.map( track => track.id );
-  //   if ( existing_track_ids.includes(track.id) ) {
-  //     this.state.playlistTracks.push(track);
-  //     console.log(this.state.playlistTracks)
-  //     this.setState( {playlistTracks: this.state.playlistTracks} )
-  //     console.log('Found it!')
-  //     console.log(this.state.playlistTracks)
-  //   } else {
-  //     console.log('Not found')
-  //     console.log(this.state.playlistTracks)
-  //   }
-  // }
-    if ( this.state.playlistTracks.find( m_track => m_track.id === track.id ) ) {
-      this.state.playlistTracks.push(track);
-      console.log(this.state.playlistTracks)
-      this.setState( {playlistTracks: this.state.playlistTracks} )
+    let existing_track_ids = this.state.playlistTracks.map( track => track.id );
+    if ( existing_track_ids.includes(track.id) ) {
       console.log('Found it!')
-      console.log(this.state.playlistTracks)
     } else {
+      this.state.playlistTracks.push(track);
+      this.setState( {playlistTracks: this.state.playlistTracks} )
       console.log('Not found')
-      console.log(this.state.playlistTracks)
     }
   }
-}
+
+  removeTrack(track) {
+    console.log('Remove it!')
+    this.setState( {playlistTracks: this.state.playlistTracks.filter( m_track => m_track.id !== track.id )} )
+  }
+
+} // END App
+
+
+
 
 export default App;
