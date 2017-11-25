@@ -41,17 +41,18 @@ class App extends Component {
   }
 
   addTrack(track) {
-    let existing_track_ids = this.state.playlistTracks.map( track => track.id );
-    if ( ! existing_track_ids.includes(track.id) ) {
-      this.state.playlistTracks.push(track);
-      this.setState( {playlistTracks: this.state.playlistTracks} )
-      console.log('Not found')
+    if ( this.state.playlistTracks.find( m_track => m_track.id === track.id ) === undefined ) {
+      let tmp = this.state.playlistTracks;
+      tmp.push(track);
+      this.setState( {playlistTracks: tmp} )
+      console.log('Found it!')
     }
   }
 
   removeTrack(track) {
+    let tmp = this.state.playlistTracks.filter( m_track => m_track.id !== track.id );
     console.log('Remove it!')
-    this.setState( {playlistTracks: this.state.playlistTracks.filter( m_track => m_track.id !== track.id )} )
+    this.setState( {playlistTracks: tmp} )
   }
 
 } // END App
